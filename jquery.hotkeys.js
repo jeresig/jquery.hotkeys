@@ -11,7 +11,7 @@
 */
 
 (function(jQuery){
-	
+
 	jQuery.hotkeys = {
 		version: "0.8",
 
@@ -24,7 +24,7 @@
 			112: "f1", 113: "f2", 114: "f3", 115: "f4", 116: "f5", 117: "f6", 118: "f7", 119: "f8", 
 			120: "f9", 121: "f10", 122: "f11", 123: "f12", 144: "numlock", 145: "scroll", 191: "/", 224: "meta"
 		},
-	
+
 		shiftNums: {
 			"`": "~", "1": "!", "2": "@", "3": "#", "4": "$", "5": "%", "6": "^", "7": "&", 
 			"8": "*", "9": "(", "0": ")", "-": "_", "=": "+", ";": ": ", "'": "\"", ",": "<", 
@@ -33,24 +33,30 @@
 	};
 
 	function keyHandler( handleObj ) {
-		// Only care when a possible input has been specified
-		if ( typeof handleObj.data !== "string" ) {
-			return;
+		var defaults = {
+				combi: "",
+				disableInInput: true
 		}
-		
+		// Only care when a possible input has been specified
+		if ( typeof handleObj.data == "string" ) {
+			defaults = jQuery.extend(defaults, {combi: handleObj.data});
+		} else {
+			defaults = jQuery.extend(defaults, handleObj.data);
+		}
+
 		var origHandler = handleObj.handler,
-			keys = handleObj.data.toLowerCase().split(" ");
-	
+			keys = defaults.combi.toLowerCase().split(" ");
+
 		handleObj.handler = function( event ) {
+			var character = String.fromCharCode( event.which ).toLowerCase(),
+					isTextInput = (/textarea|select/i.test( event.target.nodeName ) || event.target.type === "text");
 			// Don't fire in text-accepting inputs that we didn't directly bind to
-			if ( this !== event.target && (/textarea|select/i.test( event.target.nodeName ) ||
-				 event.target.type === "text") ) {
+      if ( this !== event.target && isTextInput && defaults.disableInInput ) {
 				return;
 			}
-			
-			// Keypress represents characters, not special keys
+
+      // Keypress represents characters, not special keys
 			var special = event.type !== "keypress" && jQuery.hotkeys.specialKeys[ event.which ],
-				character = String.fromCharCode( event.which ).toLowerCase(),
 				key, modif = "", possible = {};
 
 			// check combinations (alt|ctrl|shift+anything)
@@ -61,7 +67,7 @@
 			if ( event.ctrlKey && special !== "ctrl" ) {
 				modif += "ctrl+";
 			}
-			
+
 			// TODO: Need to make sure this works consistently across platforms
 			if ( event.metaKey && !event.ctrlKey && special !== "meta" ) {
 				modif += "meta+";
@@ -83,9 +89,11 @@
 					possible[ jQuery.hotkeys.shiftNums[ character ] ] = true;
 				}
 			}
-
 			for ( var i = 0, l = keys.length; i < l; i++ ) {
 				if ( possible[ keys[i] ] ) {
+					if (isTextInput && !defaults.disableInInput) {
+						event.preventDefault();
+					}
 					return origHandler.apply( this, arguments );
 				}
 			}
