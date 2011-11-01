@@ -11,6 +11,7 @@
 */
 
 (function(jQuery){
+	var types = ['text', 'search', 'tel', 'url', 'email', 'password', 'number'];
 	
 	jQuery.hotkeys = {
 		version: "0.8",
@@ -44,7 +45,7 @@
 		handleObj.handler = function( event ) {
 			// Don't fire in text-accepting inputs that we didn't directly bind to
 			if ( this !== event.target && (/textarea|select/i.test( event.target.nodeName ) ||
-				 event.target.type === "text") ) {
+				 types.indexOf(event.target.type) >= 0) ) {
 				return;
 			}
 			
