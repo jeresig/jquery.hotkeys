@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <script src="jquery-1.4.2.js"></script>
+        <script src="jquery.hotkeys.js"></script>
+    </head>
+
+    <body>
+		Typing an 's' except when in text or password boxes should target "Target"
+		<br />
+		Target: <input type="text" id="targetBox" value="" />
+		<br />
+		Text: <input type="text" id="text" value="" />
+		<br />
+		Password: <input type="password" id="password" value="" />
+        <script>           
+			$(document).ready(function(){
+				$(document).bind('keyup', 's', function() {
+					$('#targetBox').focus();
+				})
+			});
+			
+        </script>
+    </body>
+</html>
