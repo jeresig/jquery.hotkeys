@@ -56,9 +56,12 @@
 			}
 
 			// Keypress represents characters, not special keys
-			var special = event.type !== "keypress" && jQuery.hotkeys.specialKeys[ event.which ],
-				character = String.fromCharCode( event.which ).toLowerCase(),
-				key, modif = "", possible = {};
+		        var special = jQuery.hotkeys.specialKeys[ event.keyCode ],
+		
+		          // characters are represented only in keypress
+		          character = event.type === "keypress" && String.fromCharCode( event.which ).toLowerCase(),
+		          modif = "", possible = {};
+
 
 			// check combinations (alt|ctrl|shift+anything)
 			if ( event.altKey && special !== "alt" ) {
