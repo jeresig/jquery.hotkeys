@@ -5,10 +5,16 @@ This plugin is based off of the plugin by Tzury Bar Yochay: [jQuery.hotkeys](htt
 
 The syntax is as follows:
 
-    $(expression).bind(types, keys, handler);
-    $(expression).unbind(types, handler);
+    $(expression).bind( types, key, handler );
+    $(expression).bind( types, options, handler );
+    $(expression).unbind( types, handler );
     
-    $(document).bind('keydown', 'ctrl+a', fn);
+    $(document).bind( 'keydown', 'ctrl+a', fn );
+
+    $(document).bind( 'keydown', {
+        key: 'ctrl+a',
+        global: true
+    }, fn )
     
     // e.g. replace '$' sign with 'EUR'
     $('input.foo').bind('keyup', '$', function(){
@@ -22,7 +28,8 @@ Supported types are `'keydown'`, `'keyup'` and `'keypress'`
 
 If you want to use more than one modifiers (e.g. alt+ctrl+z) you should define them by an alphabetical order e.g. alt+ctrl+shift
 
-Hotkeys aren't tracked if you're inside of an input element (unless you explicitly bind the hotkey directly to the input). This helps to avoid conflict with normal user typing.
+By default, hotkeys aren't tracked if you're inside of an input element (unless you explicitly bind the hotkey directly to the input). This helps to avoid conflict with normal user typing. To override this
+behaviour, when calling the `bind` function, pass an options object and set `global` to `true`.
 
 ## jQuery Compatibility
 
