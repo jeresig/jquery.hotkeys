@@ -51,7 +51,7 @@
 		}
 
 		var origHandler = handleObj.handler,
-			keys = options['key'].toLowerCase().split(" ");
+			keys = options['key'].toLowerCase().split(" "),
 			textAcceptingInputTypes = ["text", "password", "number", "email", "url", "range", "date", "month", "week", "time", "datetime", "datetime-local", "search", "color"];
 	
 		handleObj.handler = function( event ) {
