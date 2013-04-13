@@ -52,12 +52,14 @@
 
 		var origHandler = handleObj.handler,
 			keys = options['key'].toLowerCase().split(" ");
+			textAcceptingInputTypes = ["text", "password", "number", "email", "url", "range", "date", "month", "week", "time", "datetime", "datetime-local", "search", "color"];
 	
 		handleObj.handler = function( event ) {
 			// Global events always fire, non-global events don't fire inside text
 			// fields and other editable controls
 			if ( !options['global'] ) {
-				if ( this !== event.target && isTextEvent( event ) ) {
+				if ( this !== event.target && (/textarea|select/i.test( event.target.nodeName ) ||
+					jQuery.inArray(event.target.type, textAcceptingInputTypes) > -1 ) ) {
 					return;
 				}
 			}
