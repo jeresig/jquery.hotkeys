@@ -10,6 +10,11 @@
  * Binny V A, http://www.openjs.com/scripts/events/keyboard_shortcuts/
 */
 
+/*
+ * One small change is: now keys are passed by object { keys: '...' }
+ * Might be useful, when you want to pass some other data to your handler
+ */
+
 (function(jQuery){
 	
 	jQuery.hotkeys = {
@@ -34,13 +39,17 @@
 	};
 
 	function keyHandler( handleObj ) {
+		if ( typeof handleObj.data === "string" ) {
+			handleObj.data = { keys: handleObj.data };
+		}
+
 		// Only care when a possible input has been specified
-		if ( typeof handleObj.data !== "string" ) {
+		if ( !handleObj.data.keys || typeof handleObj.data.keys !== "string" ) {
 			return;
 		}
-		
+
 		var origHandler = handleObj.handler,
-			keys = handleObj.data.toLowerCase().split(" "),
+			keys = handleObj.data.keys.toLowerCase().split(" "),
 			textAcceptingInputTypes = ["text", "password", "number", "email", "url", "range", "date", "month", "week", "time", "datetime", "datetime-local", "search", "color"];
 	
 		handleObj.handler = function( event ) {
