@@ -33,23 +33,38 @@
 		}
 	};
 
+	function isTextEvent( event ) {
+		return /textarea|select/i.test( event.target.nodeName ) ||
+			event.target.type === "text"
+	}
+
 	function keyHandler( handleObj ) {
-		// Only care when a possible input has been specified
-		if ( typeof handleObj.data !== "string" ) {
-			return;
+		var options = {
+			global: false,
 		}
-		
+
+		if ( !handleObj.data ) {
+			return
+		} else if ( typeof handleObj.data === "string" ) {
+			options['key'] = handleObj.data;
+		} else {
+			$.extend( options, handleObj.data );
+		}
+
 		var origHandler = handleObj.handler,
-			keys = handleObj.data.toLowerCase().split(" "),
+			keys = options['key'].toLowerCase().split(" "),
 			textAcceptingInputTypes = ["text", "password", "number", "email", "url", "range", "date", "month", "week", "time", "datetime", "datetime-local", "search", "color"];
 	
 		handleObj.handler = function( event ) {
-			// Don't fire in text-accepting inputs that we didn't directly bind to
-			if ( this !== event.target && (/textarea|select/i.test( event.target.nodeName ) ||
-				jQuery.inArray(event.target.type, textAcceptingInputTypes) > -1 ) ) {
-				return;
+			// Global events always fire, non-global events don't fire inside text
+			// fields and other editable controls
+			if ( !options['global'] ) {
+				if ( this !== event.target && (/textarea|select/i.test( event.target.nodeName ) ||
+					jQuery.inArray(event.target.type, textAcceptingInputTypes) > -1 ) ) {
+					return;
+				}
 			}
-			
+
 			// Keypress represents characters, not special keys
 			var special = event.type !== "keypress" && jQuery.hotkeys.specialKeys[ event.which ],
 				character = String.fromCharCode( event.which ).toLowerCase(),
