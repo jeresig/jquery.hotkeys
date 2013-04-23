@@ -14,9 +14,21 @@ The syntax is as follows:
     $('input.foo').bind('keyup', '$', function(){
       this.value = this.value.replace('$', 'EUR');
     });
+    
+Syntax when wanting to use jQuery's `on()`/`off` methods:
+
+    $(expression).on(types, null, keys, handler);
+    $(expression).off(types, handler);
+    
+    $(document).on('keydown', null, 'ctrl+a', fn);
+    
+    // e.g. replace '$' sign with 'EUR'
+    $('input.foo').on('keyup', null, '$', function(){
+      this.value = this.value.replace('$', 'EUR');
+    });     
 
 ## Types
-Supported types are `'keydown'`, `'keyup'` and `'keypress'`
+Supported types are `'keydown'`, `'keyup'` and `'keypress'`   
 
 ## Notes
 
