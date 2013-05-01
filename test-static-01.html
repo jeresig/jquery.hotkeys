@@ -41,7 +41,7 @@
                 
                 // the fetching...
                 $.each(elements, function(i, e) { // i is element index. e is element as text.
-                   var newElment = ( /[\+]+/.test(elements[i]) ) ? elements[i].replace("+","_") : elements[i];
+                   var newElement = ( /[\+]+/.test(elements[i]) ) ? elements[i].replace("+","_") : elements[i];
                    
                    // Binding keys
                    $(document).bind('keydown', elements[i], function assets() {
