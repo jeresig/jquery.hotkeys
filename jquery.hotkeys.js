@@ -44,7 +44,7 @@
 		}
 
 		// Only care when a possible input has been specified
-		if ( !handleObj.data.keys || typeof handleObj.data.keys !== "string" ) {
+		if ( !handleObj.data || !handleObj.data.keys || typeof handleObj.data.keys !== "string" ) {
 			return;
 		}
 
