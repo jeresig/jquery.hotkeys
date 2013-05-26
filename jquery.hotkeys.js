@@ -58,10 +58,10 @@
 				jQuery.inArray(event.target.type, textAcceptingInputTypes) > -1 ) ) {
 				return;
 			}
-			
-			// Keypress represents characters, not special keys
-			var special = event.type !== "keypress" && jQuery.hotkeys.specialKeys[ event.which ],
-				character = String.fromCharCode( event.which ).toLowerCase(),
+
+			var special = jQuery.hotkeys.specialKeys[ event.keyCode ],
+				// character codes are available only in keypress
+				character = event.type === "keypress" && String.fromCharCode( event.which ).toLowerCase(),
 				modif = "", possible = {};
 
 			// check combinations (alt|ctrl|shift+anything)
@@ -84,8 +84,9 @@
 
 			if ( special ) {
 				possible[ modif + special ] = true;
+			}
 
-			} else {
+			if ( character ) {
 				possible[ modif + character ] = true;
 				possible[ modif + jQuery.hotkeys.shiftNums[ character ] ] = true;
 
