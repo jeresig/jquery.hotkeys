@@ -44,7 +44,7 @@
 		}
 
 		// Only care when a possible input has been specified
-		if ( !handleObj.data || !handleObj.data.keys || typeof handleObj.data.keys !== "string" ) {
+		if ( this !== event.target && /textarea|select|input/i.test( event.target.nodeName ) ){
 			return;
 		}
 
