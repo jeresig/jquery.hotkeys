@@ -29,9 +29,9 @@
 			112: "f1", 113: "f2", 114: "f3", 115: "f4", 116: "f5", 117: "f6", 118: "f7", 119: "f8", 
 			120: "f9", 121: "f10", 122: "f11", 123: "f12", 144: "numlock", 145: "scroll", 186: ";", 191: "/",
 			220: "\\", 222: "'", 224: "meta",
-		        // fix problem with detect cmd key in webkit
-            		// http://stackoverflow.com/questions/3902635/how-does-one-capture-a-macs-command-key-via-javascript
-            		91: "meta", 93: "meta"
+            // fix problem with detect cmd key in webkit
+            // http://stackoverflow.com/questions/3902635/how-does-one-capture-a-macs-command-key-via-javascript
+            91: "meta", 93: "meta"
 
 		},
 	
