@@ -1,6 +1,6 @@
 <html>
     <head>
-        <script src="jquery-1.4.2.js"></script>
+        <script src="jquery-2.1.1.js"></script>
         <script src="jquery.hotkeys.js"></script>
     </head>
 
@@ -14,16 +14,16 @@
                     return false;
                 });
             }
-            
+
             function unBindCtrlS(){
                 jQuery(document).unbind('keydown', 'ctrl+s');
             }
-            
+
             $(document).ready(function(){
                 $('#bindCtrlS').bind('click', bindCtrlS);
                 $('#unBindCtrlS').bind('click', unBindCtrlS);
                 }
             );
-            
+
         </script>
     </body></html>

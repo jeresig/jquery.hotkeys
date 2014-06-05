@@ -5,7 +5,7 @@
             * {font-family: mono; font-size:0.95em}
             .eventNotifier{width: 100px; float: left; color:navy; border: dotted 1px navy; padding: 4px; background-color:white; margin:3px}
             .dirty{border: solid 1px #0ca2ff; color:white; background-color:#0ca2ff}
-            
+
         </style>
     </head>
     <body>
@@ -42,7 +42,7 @@
     </body>
     <hr />
     <div id="logger"></div>
-    <script src="jquery-1.4.2.js"></script>
+    <script src="jquery-2.1.1.js"></script>
     <script src="jquery.hotkeys.js"></script>
     <script>
         $(document).ready(function(){
@@ -52,7 +52,7 @@
                 .bind('click', function (event){
                     if (event.target == $('html')[0]){
                         alert("save the planet, don't waste energy over meaningless clicking");
-                    }    
+                    }
                 });
 
             $('#input_01').bind('keyup', 'a', function(event){
@@ -66,21 +66,21 @@
 
             $('table').bind('keydown click keyup', 'ctrl+l', clickHandler);
         });
-        
+
         function clickHandler(event){
             log('binding ' + event.type + ' with(ctrl+l) to <b>table</b> applied on <b>#' + event.target.id + '</b>');
-            return false;          
+            return false;
         }
-        
+
         function unbindClick(){
             $('table').unbind('click', clickHandler).unbind('keyup', 'ctrl+l', clickHandler);
         }
-        
+
         function unbindKeyup(){
             $('table').unbind('keyup', 'ctrl+l', clickHandler);
         }
-        
-        
+
+
         function log(msg){
             $('#logger').html(msg);
         }
