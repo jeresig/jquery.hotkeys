@@ -103,7 +103,7 @@
                 }
             }
         };
-    };
+    }
 
     jQuery.each(["keydown", "keyup", "keypress"], function() {
         jQuery.event.special[this] = {
