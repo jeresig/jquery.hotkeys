@@ -138,4 +138,28 @@ describe("binding functions to key combinations", function() {
 
     }, this);
   });
+
+  it("should support F13-19", function() {
+    var $doc = $(document);
+    var sequence = '';
+
+    function makeSequencer(index) {
+      return function() {
+        sequence += '.' + index;
+      };
+    }
+
+    // Add listeners for each F key
+    for (var i = 1; i <= 19; i++) {
+      $doc.bind('keydown', 'f' + i, makeSequencer(i));
+    }
+
+    // Trigger a keypress on each F key
+    for (var j = 1; j <= 19; j++) {
+      var event = this.createKeyEvent(111 + j, 'keydown');
+      $doc.trigger(event);
+    }
+
+    expect(sequence).toEqual('.1.2.3.4.5.6.7.8.9.10.11.12.13.14.15.16.17.18.19');
+  });
 });
