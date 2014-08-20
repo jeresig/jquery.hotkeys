@@ -87,28 +87,6 @@
       222: "'"
     },
 
-    shiftNums: {
-      "`": "~",
-      "1": "!",
-      "2": "@",
-      "3": "#",
-      "4": "$",
-      "5": "%",
-      "6": "^",
-      "7": "&",
-      "8": "*",
-      "9": "(",
-      "0": ")",
-      "-": "_",
-      "=": "+",
-      ";": ": ",
-      "'": "\"",
-      ",": "<",
-      ".": ">",
-      "/": "?",
-      "\\": "|"
-    },
-
     // excludes: button, checkbox, file, hidden, image, password, radio, reset, search, submit, url
     textAcceptingInputTypes: [
       "text", "password", "number", "email", "url", "range", "date", "month", "week", "time", "datetime",
@@ -168,12 +146,6 @@
       }
       else {
         possible[modif + character] = true;
-        possible[modif + jQuery.hotkeys.shiftNums[character]] = true;
-
-        // "$" can be triggered as "Shift+4" or "Shift+$" or just "$"
-        if (modif === "shift+") {
-          possible[jQuery.hotkeys.shiftNums[character]] = true;
-        }
       }
 
       for (var i = 0, l = keys.length; i < l; i++) {
