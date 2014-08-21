@@ -53,13 +53,23 @@ It is known to be working with all the major browsers on all available platforms
  * Safari-3+
  * Chrome-0.2+
 
+## Hotkeys within inputs
+
+Hotkeys aren't tracked if the user is focused within an input element or any element that has `contenteditable="true"` unless you bind the hotkey directly to the element. This helps to avoid conflict with normal user typing. If this is undesired behavior, you can override the filter function:
+
+```js
+jQuery.hotkeys.filter = function(event) {
+  // event.target is the element that triggered the key event
+  // this is the element that the listener is bound to
+  return true; // returning true will allow hotkeys to be tracked
+};
+```
+
 ## Notes
 
 Modifiers are not case sensitive (`Ctrl` == `ctrl` == `cTRL`)
 
 If you want to use more than one modifier (e.g. `alt+ctrl+z`) you should define them by an alphabetical order e.g. alt+ctrl+shift
-
-Hotkeys aren't tracked if you're inside of an input element (unless you explicitly bind the hotkey directly to the input). This helps to avoid conflict with normal user typing.
 
 You can use namespacing by adding a suffix to the event type (e.g. `keyup.toggle`)
 

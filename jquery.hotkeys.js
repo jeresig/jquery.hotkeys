@@ -109,6 +109,18 @@
       "\\": "|"
     },
 
+    filter: function(event) {
+      var target = event.target;
+
+      var targetIsTextInput = target.isContentEditable || (target.tagName === 'INPUT' && jQuery.inArray(target.type, jQuery.hotkeys.textAcceptingInputTypes) > -1);
+      var shouldFilterTextInput = jQuery.hotkeys.options.filterTextInputs && targetIsTextInput;
+      var targetIsTextAreaOrSelect = !/textarea|select/i.test(target.nodeName);
+      var eventIsBoundToTarget = this === target;
+
+      // Don't fire in text-accepting inputs that we didn't directly bind to
+      return eventIsBoundToTarget || !targetIsTextAreaOrSelect || !shouldFilterTextInput;
+    },
+
     // excludes: button, checkbox, file, hidden, image, password, radio, reset, search, submit, url
     textAcceptingInputTypes: [
       "text", "password", "number", "email", "url", "range", "date", "month", "week", "time", "datetime",
@@ -135,10 +147,7 @@
       keys = handleObj.data.keys.toLowerCase().split(" ");
 
     handleObj.handler = function(event) {
-      //      Don't fire in text-accepting inputs that we didn't directly bind to
-      if (this !== event.target && (/textarea|select/i.test(event.target.nodeName) ||
-        (jQuery.hotkeys.options.filterTextInputs &&
-          jQuery.inArray(event.target.type, jQuery.hotkeys.textAcceptingInputTypes) > -1))) {
+      if (!jQuery.hotkeys.filter.call(this, event)) {
         return;
       }
 

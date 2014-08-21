@@ -126,6 +126,53 @@ describe("binding functions to key combinations", function() {
     }, this);
   });
 
+  it("should not trigger event handler callbacks bound to elements with contenteditable=true if not bound directly", function() {
+    var $doc = $(document);
+
+    var $el = $('<div contenteditable="true">Text!</div>');
+    this.fixture.append($el);
+
+    var spy = sinon.spy();
+    $doc.bind('keydown', 'a', spy);
+
+    var event = this.createKeyEvent('65', 'keydown');
+    $el.trigger(event);
+
+    sinon.assert.notCalled(spy);
+
+    $doc.unbind();
+    $el.remove();
+  });
+
+  it("should allow overriding filter function", function() {
+    var $doc = $(document);
+    var oldFilter = jQuery.hotkeys.filter;
+
+    var keySpy = sinon.spy();
+
+    jQuery.hotkeys.filter = function(event) {
+      expect(this).toBe($doc.get(0));
+      expect(event.target).toBe($el.get(0));
+      return true;
+    };
+
+    sinon.spy(jQuery.hotkeys, 'filter');
+
+    var $el = $('<div contenteditable="true">Text!</div>');
+    this.fixture.append($el);
+
+    $doc.bind('keydown', 'a', keySpy);
+
+    var event = this.createKeyEvent('65', 'keydown');
+    $el.trigger(event);
+
+    sinon.assert.called(keySpy);
+    sinon.assert.called(jQuery.hotkeys.filter);
+
+    jQuery.hotkeys.filter.restore();
+    jQuery.hotkeys.filter = oldFilter;
+  });
+
   it("should bind and trigger events from an input element if bound directly", function() {
 
     var i = 0;
