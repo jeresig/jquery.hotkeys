@@ -30,7 +30,7 @@ $(document).on('keydown', null, 'ctrl+a', fn);
 // e.g. replace '$' sign with 'EUR'
 $('input.foo').on('keyup', null, '$', function(){
   this.value = this.value.replace('$', 'EUR');
-});     
+});
 ```
 
 ## Example
@@ -57,15 +57,6 @@ It is known to be working with all the major browsers on all available platforms
 If you want to include this module in a Browserified project, just add it to node_modules and require it.
 ```javascript
 require('jquery.javascript');
-```
-
-This will work if jQuery is global (ex. served from a CDN). If it's not, you need to (shim it)[https://github.com/thlorenz/browserify-shim#a-expose-global-variables-via-global]:
-```javascript
-{
-  "browserify-shim": {
-    "jquery": "global:jQuery"
-  }
-}
 ```
 
 ## Notes
