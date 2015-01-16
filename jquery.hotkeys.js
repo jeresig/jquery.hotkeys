@@ -1,5 +1,6 @@
 /*jslint browser: true*/
 /*jslint jquery: true*/
+/*jslint dojo: true*/
 
 /*
  * jQuery Hotkeys Plugin
@@ -17,8 +18,20 @@
  * One small change is: now keys are passed by object { keys: '...' }
  * Might be useful, when you want to pass some other data to your handler
  */
-
-(function(jQuery) {
+(function(factory) {
+  if (typeof define === "function" && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(["jquery"], factory);
+  }
+  else if (typeof exports === "object") {
+    // Node/CommonJS
+    factory(require("jquery"));
+  }
+  else {
+    // Browser globals
+    factory(jQuery || this.jQuery || window.jQuery);
+  }
+}(function(jQuery) {
 
   jQuery.hotkeys = {
     version: "0.8",
@@ -201,4 +214,4 @@
     };
   });
 
-})(jQuery || this.jQuery || window.jQuery);
+}));
