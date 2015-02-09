@@ -59,7 +59,7 @@ If you want to include this module in a Browserified project, just add it to nod
 require('jquery.javascript');
 ```
 
-This will work if jQuery is global (ex. served from a CDN). If it's not, you need to (shim it)[https://github.com/thlorenz/browserify-shim#a-expose-global-variables-via-global]:
+This will work if jQuery is global (ex. served from a CDN). If it's not, you need to [shim it](https://github.com/thlorenz/browserify-shim#a-expose-global-variables-via-global):
 ```javascript
 {
   "browserify-shim": {
