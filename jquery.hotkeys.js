@@ -175,20 +175,22 @@
       }
 
       if (special) {
-        possible[modif + special] = true;
+        possible[modif + special] = modif + special;
       }
       else {
-        possible[modif + character] = true;
-        possible[modif + jQuery.hotkeys.shiftNums[character]] = true;
+        possible[modif + character] = modif + character;
+        possible[modif + jQuery.hotkeys.shiftNums[character]] = modif + jQuery.hotkeys.shiftNums[character];
 
         // "$" can be triggered as "Shift+4" or "Shift+$" or just "$"
         if (modif === "shift+") {
-          possible[jQuery.hotkeys.shiftNums[character]] = true;
+          possible[jQuery.hotkeys.shiftNums[character]] = jQuery.hotkeys.shiftNums[character];
         }
       }
 
       for (var i = 0, l = keys.length; i < l; i++) {
-        if (possible[keys[i]]) {
+        var key = possible[keys[i]];
+        if (key) {
+          [].push.call(arguments, key);
           return origHandler.apply(this, arguments);
         }
       }
