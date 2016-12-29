@@ -149,7 +149,9 @@
           jQuery.hotkeys.textInputTypes.test(event.target.nodeName) ||
           (jQuery.hotkeys.options.filterContentEditable && jQuery(event.target).attr('contenteditable')) ||
           (jQuery.hotkeys.options.filterTextInputs &&
-            jQuery.inArray(event.target.type, jQuery.hotkeys.textAcceptingInputTypes) > -1))) {
+            jQuery.inArray(event.target.type, jQuery.hotkeys.textAcceptingInputTypes) > -1) || 
+            jQuery(event.target).attr('contenteditable')
+            )) {
         return;
       }
 
