@@ -112,16 +112,18 @@
       "\\": "|"
     },
 
-    // excludes: button, checkbox, file, hidden, image, password, radio, reset, search, submit, url
+    /**
+     * Defines values of the &lt;input&gt; types for which shortcuts should NOT be active, unless
+     * bound directly. This setting is effective only if the 'filterTextInputs' flag is set to <tt>true</tt>.
+     * <p>
+     * Note that the following &lt;input&gt; types are, by default, valid targets for shortcuts,
+     * as they don't expect a textual (keyboard) form of input: button, checkbox, file, hidden, image, radio, reset, submit.
+     */
     textAcceptingInputTypes: [
       "text", "password", "number", "email", "url", "range", "date", "month", "week", "time", "datetime",
       "datetime-local", "search", "color", "tel"],
 
-    // default input types not to bind to unless bound directly
-    textInputTypes: /textarea|input|select/i,
-
     options: {
-      filterInputAcceptingElements: true,
       filterTextInputs: true,
       filterContentEditable: true
     }
@@ -145,11 +147,17 @@
     handleObj.handler = function(event) {
       //      Don't fire in text-accepting inputs that we didn't directly bind to
       if (this !== event.target &&
-        (jQuery.hotkeys.options.filterInputAcceptingElements &&
-          jQuery.hotkeys.textInputTypes.test(event.target.nodeName) ||
-          (jQuery.hotkeys.options.filterContentEditable && jQuery(event.target).attr('contenteditable')) ||
+        (
           (jQuery.hotkeys.options.filterTextInputs &&
-            jQuery.inArray(event.target.type, jQuery.hotkeys.textAcceptingInputTypes) > -1))) {
+            (
+              /textarea|select/i.test(event.target.nodeName) ||
+              // check attribute 'type' - expected to be present on <input> elements
+              jQuery.inArray(event.target.type, jQuery.hotkeys.textAcceptingInputTypes) > -1
+            )
+          ) ||
+          (jQuery.hotkeys.options.filterContentEditable && jQuery(event.target).attr('contenteditable'))
+        )
+      ) {
         return;
       }
 

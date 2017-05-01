@@ -1,6 +1,7 @@
 # jQuery.Hotkeys [![Build Status](https://secure.travis-ci.org/jeresig/jquery.hotkeys.png)](http://travis-ci.org/jeresig/jquery.hotkeys)
 
-#About
+# About
+
 **jQuery Hotkeys** is a plug-in that lets you easily add and remove handlers for keyboard events anywhere in your code supporting almost any key combination.
 
 This plugin is based off of the plugin by Tzury Bar Yochay: [jQuery.hotkeys](https://github.com/tzuryby/jquery.hotkeys)
@@ -74,19 +75,16 @@ Modifiers are not case sensitive (`Ctrl` == `ctrl` == `cTRL`)
 
 If you want to use more than one modifier (e.g. `alt+ctrl+z`) you should define them by an alphabetical order e.g. alt+ctrl+shift
 
-Hotkeys aren't tracked if you're inside of an input element (unless you explicitly bind the hotkey directly to the input). This helps to avoid conflict with normal user typing.
-
 You can use namespacing by adding a suffix to the event type (e.g. `keyup.toggle`)
 
 
-## Hotkeys within inputs
+### Hotkeys within inputs
 
-Hotkeys aren't tracked if the user is focused within an input element or any element that has `contenteditable="true"` unless you bind the hotkey directly to the element. This helps to avoid conflict with normal user typing.
+Hotkeys aren't tracked if the user is focused within an input element (i.e. ``<input>`` of any text-accepting type, ``<select>`` or ``<textarea>``) or any element that has `contenteditable="true"`, unless you bind the hotkey directly to the element. This helps to avoid conflict with normal user typing.
 If you don't want this, you can change the booleans of the following to suit:
 
- * `jQuery.hotkeys.options.filterInputAcceptingElements`
+ * `jQuery.hotkeys.options.filterTextInputs`
  * `jQuery.hotkeys.options.filterContentEditable`
- * `jQuery.hotkeys.options.filterTextInputs` (deprecated, will be removed in a later version)
 
 ### Meta and Hyper Keys
 Meta and hyper keys don't register on `keyup` in any browser tested.
