@@ -118,7 +118,7 @@
       "datetime-local", "search", "color", "tel"],
 
     // default input types not to bind to unless bound directly
-    textInputTypes: /textarea|input|select/i,
+    textInputTypes: /textarea|select/i,
 
     options: {
       filterInputAcceptingElements: true,
